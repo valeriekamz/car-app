@@ -2,7 +2,16 @@ import { Hero, SearchBar, CustomFilter, CarCard, ShowMore } from "@/components";
 import { fetchCars } from "@/utils";
 import { fuels, yearsOfProduction } from "@/constants";
 
-export default async function Home({ searchParams }) {
+// Step 1: Define the type for searchParams
+interface SearchParams {
+  manufacturer?: string;
+  year?: number;
+  fuel?: string;
+  limit?: number;
+  model?: string;
+}
+
+export default async function Home({ searchParams }: { searchParams: SearchParams }) {
   const allCars = await fetchCars({
     manufacturer: searchParams.manufacturer || "",
     year: searchParams.year || 2024,
@@ -36,11 +45,6 @@ export default async function Home({ searchParams }) {
 
           {!isDataEmpty ? (
             <section>
-              {/* <div className="home__cars-wrapper">
-                {allCars?.map((car) => (
-                  <CarCard car={car} />
-                ))}
-              </div> */}
               <div className="home__cars-wrapper">
                 {allCars?.map((car) => (
                   <CarCard
