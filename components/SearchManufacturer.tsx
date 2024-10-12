@@ -52,6 +52,7 @@ const SearchManufacturer = ({
             <Combobox.Options>
               {filteredManufacturers.length === 0 && query !== "" ? (
                 <Combobox.Option
+                  key={query} // Use the query as the key when no manufacturers match
                   value={query}
                   className="search-manufacturer__option"
                 >
@@ -60,7 +61,7 @@ const SearchManufacturer = ({
               ) : (
                 filteredManufacturers.map((item) => (
                   <Combobox.Option
-                    key={item}
+                    key={item} // Fix: Use `item` (manufacturer name) as the unique key
                     className={({ active }) =>
                       `relative search-manufacturer__option ${
                         active ? "bg-primary-blue text-white" : "text-gray-900"
@@ -68,28 +69,25 @@ const SearchManufacturer = ({
                     }
                     value={item}
                   >
-                    {({ selected, active }) => {
-                      return (
-                        <>
-                          <span
-                            className={`block truncate ${
-                              selected ? "font-medium" : "font-normal"
-                            }`}
-                          >
-                            {item}
-                          </span>
+                    {({ selected, active }) => (
+                      <>
+                        <span
+                          className={`block truncate ${
+                            selected ? "font-medium" : "font-normal"
+                          }`}
+                        >
+                          {item} {/* Display the manufacturer name */}
+                        </span>
 
-                          {/* Show an active blue background color if the option is selected */}
-                          {selected ? (
-                            <span
-                              className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                active ? "text-white" : "text-primary-purple"
-                              }`}
-                            ></span>
-                          ) : null}
-                        </>
-                      );
-                    }}
+                        {selected ? (
+                          <span
+                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                              active ? "text-white" : "text-primary-purple"
+                            }`}
+                          ></span>
+                        ) : null}
+                      </>
+                    )}
                   </Combobox.Option>
                 ))
               )}
