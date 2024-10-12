@@ -15,8 +15,6 @@ interface CarCardProps {
 const CarCard = ({ car }: CarCardProps) => {
   const {
     city_mpg,
-    class: carClass,
-    combination_mpg,
     year,
     make,
     model,
